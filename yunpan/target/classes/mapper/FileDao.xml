@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qst.yunpan.dao.FileDao" >
+
+<!-- 11-1-5 配置SQL语句，用于保存删除当前文件的操作者和文件的原路径信息  -->
+    <insert id="insertFiles">
+        insert into File(filePath,userName) values(#{filePath},#{userName})
+    </insert>
+
+<!--  18-1-5-2 添加查询回收站中数据的SQL语句  -->
+    <select id="selectFiles" resultType="com.qst.yunpan.pojo.RecycleFile">
+        select * from File where userName = #{userName}
+    </select>
+
+<!--  18-2-4-2 根据id查询文件表  -->
+    <select id="selectFile" resultType="com.qst.yunpan.pojo.RecycleFile">
+        select * from File where fileId = #{fileId}
+    </select>
+    <!--  18-2-4-2 根据id、用户名删除文件表中的数据，代码如下所示；  -->
+    <delete id="deleteFile">
+        delete from File where fileId = #{fileId} and userName = #{userName}
+    </delete>
+
+<!--  18-3-5-2  -->
+    <delete id="deleteFiles">
+        delete from File where userName = #{userName}
+    </delete>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qst.yunpan.dao.OfficeDao" >
+    <!--    5-4-2.officeDao映射文件-->
+    <insert id="addOffice">
+        insert into office(officeid, officeMd5) values(#{officeId}, #{officeMd5})
+    </insert>
+    <select id="getOfficeId" parameterType="java.lang.String" resultType="java.lang.String">
+        select officeid from office where officeMd5 = #{officeMd5}
+    </select>
+
+<!--  5.将更新后用户所使用的空间大小保存至数据库  -->
+    <update id="reSize">
+        update user set countSize = #{formatSize} where username = #{username}
+    </update>
+<!--  5.用于查询最新的用户空间使用情况  -->
+    <select id="getCountSize" parameterType="java.lang.String" resultType="java.lang.String">
+        select countSize from user where username = #{username}
+    </select>
+
+<!--  20-7-3 根据id查询文件ID信息 -->
+<!--    <select id="getOfficeId" parameterType="java.lang.String" resultType="java.lang.String">-->
+<!--        select officeid from office where officeMd5 = #{officeMd5}-->
+<!--    </select>-->
+</mapper>

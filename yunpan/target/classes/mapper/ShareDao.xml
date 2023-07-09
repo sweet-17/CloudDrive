@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 16-1-5-2 创建ShareDao.java接口ShareDao.xml文件，用于处理分享文件的数据 -->
+<mapper namespace="com.qst.yunpan.dao.ShareDao" >
+    <insert id="shareFile" parameterType="com.qst.yunpan.pojo.Share" >
+        insert into share(shareUrl, path, shareUser) values(#{shareUrl},#{path},#{shareUser})
+    </insert>
+<!-- 16-2-5 添加接口方法的实现-->
+    <select id="findShare" parameterType="com.qst.yunpan.pojo.Share" resultType="com.qst.yunpan.pojo.Share">
+        select * from share where shareUrl = #{shareUrl} and status = #{status}
+    </select>
+<!--    17-1-4-2 从share表中查询出该用户的已分享信息-->
+    <select id="findShareByName" resultType="com.qst.yunpan.pojo.Share">
+        select * from share where shareUser = #{username, jdbcType=VARCHAR} and status = #{status, jdbcType=TINYINT}
+    </select>
+<!--    17-2-4-2 对保存的分享链接进行删除-->
+    <update id="cancelShare">
+        update share set status = #{status} where shareUrl = #{url} and path=#{filePath}
+    </update>
+</mapper>
